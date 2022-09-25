@@ -1,0 +1,16 @@
+The keychains.txt is an example of what keychains exist on an iOS device
+
+The secret.sqlite is actually a Signal instant messaging application database file which has been encrypted
+
+To decrypt the secret.sqlite you must be able to identify the keychain information that Signal uses which can be easily searched for in the txt file
+
+Then you require a tool such as sqlcipher to decrypt the database
+
+1. ./sqlcipher secret.sqlite
+2. sqlite> PRAGMA key="x'26c864d5999a643ec4dc7dd3e575ef8d88a9649cf7f43d92ead40abe1e587e885e4fe2d415f56628220f5231c34637a3'";
+3. sqlite> PRAGMA cipher_plaintext_header_size = 32;
+4. sqlite> ATTACH DATABASE 'ctf_decrypted.sqlite' AS ctf_decrypted KEY '';
+5. sqlite> SELECT sqlcipher_export('ctf_decrypted');
+6. sqlite> DETACH DATABASE ctf_decrypted;
+
+You may now open the sqlite database to view the data and it will be present in one of the database tables :slight_smile: I have attached the decrypted sqlite database in the event it doesnt work for anyone. The flag will be present without brackets and underscores so the participant has to fill them in.

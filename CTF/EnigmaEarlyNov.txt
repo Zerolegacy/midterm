@@ -1,0 +1,9 @@
+Find the code book page for October 1944 and set the Enigma rotors to the date when message.txt was sent by Sam.
+The encryption method used is by the German Navy. However, for this challenge the Operational Turing in the code book for this challenge is not needed.
+Most Enigma starts with A=1 so on and so forth, however in this case, A=0. Hence all the letters in the rotors needs to be offset by 1. If a script* or kali* is used, this might not be required.
+Set the rotors to the first 3 letters of the message to decrypt the next 3 letters the string.
+Set the rotors to the previously decoded 3 letters above and decrypt the rest of the string excluding the first 6 letters of the original string.
+Read the decrypted text for the next instructions.
+Highlight the encrypted part of the message and decode the message with substitution cipher with the key provided. Then bring the first half of the key to the back of the key and decrypt it once more with the new key.
+Decrypted text: HAAPPYBBIRTTHDAY
+LNC{HAAPPYBBIRTTHDAY}

